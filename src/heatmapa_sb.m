@@ -4,6 +4,8 @@ clear all; close all;
 data = input('Podaj nazwę pliku: ', 's');
 
 %załadowanie danych
+cd ..;
+cd 'data';
 dane = load (data);
 dane = dane.max_temps;
 
