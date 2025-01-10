@@ -38,9 +38,13 @@ for i = 1:length(X)
     label = ['[', legends{i}, ']', ' ', num2str(Z(i), '%.2f')];
     text(X(i) + 1, Y(i) + 0.2, label);
 end
-
 hold off;
+
+% Ustawienie zakresu temperatur na colorbar
 c = colorbar;
+caxis([100 120]);
+
+%opisanie wykresu
 ylabel(c, 'Temperatura [°C]');
 xlabel('X [cm]');
 ylabel('Y [cm]');

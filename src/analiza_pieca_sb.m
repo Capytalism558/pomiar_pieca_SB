@@ -114,11 +114,7 @@ for i = 1 : 8
 end
 
 %-------------------------zapis danych---------------------------%
-if strcmp(data, 'dane_otwarte_okno.txt')
-    save('heatmap_temps_otwarte_okno.mat', 'T_heatmap');
-    save('all_temps_otwarte_okno.mat', 'T_all');
-end
-if strcmp(data, 'dane_zamkniete_okno.txt')
-    save('heatmap_temps_zamkniete_okno.mat', 'T_heatmap');
-    save('all_temps_zamkniete_okno.mat', 'T_all')
-end
+title_all_temps = input('Podaj nazwę pliku, który przechowuje wszystkie temperatury: ', 's');
+title_heatmap_temps = input('Podaj nazwę pliku, który przechowuje temperatury dla heatmapy: ', 's');
+save(title_all_temps, 'T_all');
+save(title_heatmap_temps, 'T_heatmap');
