@@ -30,10 +30,6 @@ prescaller = Vcc/digit; %[V]
 %wektor czasu
 t = [0 : 1 : length(dane(:, 1))-1]/120;
 
-%temperatura zadana i prędkość grzania
-T_set_vec = [1, 1] * T_set;
-T_v_vec = [0, t(length(t))/60] * T_v;
-
 %macierz temperatur 
 T_all = [];
 
@@ -85,12 +81,14 @@ for i = 1 : sensors
     %wizualizacja wyników
     hold on;
     plot(t, T, 'Color', colors(i, :), 'LineWidth', 2);
-end 
+end
 
 %narysowanie temperatury zadanej
+T_set_vec = [1, 1] * T_set;
 plot([0, t(length(t))], T_set_vec, 'Color', colors(9, :), 'LineWidth', 2.5);
 
 %narysowanie rampy grzania
+T_v_vec = [0, t(length(t))/60] * T_v;
 plot([0, t(length(t))], T_v_vec, 'Color', colors(10, :), 'LineWidth', 2.5);
 
 %opisanie wykresu
@@ -100,7 +98,7 @@ xlabel ('Czas t [min]');
 ylabel('Wartość temp T [°C]');
 grid('on');
 xlim ([0, t(1, length(t))]);
-ylim ([0, T_set + 10]);
+ylim ([0, max(max(T_all)) + 10]);
 hold off;
 
 
@@ -114,7 +112,16 @@ for i = 1 : 8
 end
 
 %-------------------------zapis danych---------------------------%
-title_all_temps = input('Podaj nazwę pliku, który przechowuje wszystkie temperatury: ', 's');
-title_heatmap_temps = input('Podaj nazwę pliku, który przechowuje temperatury dla heatmapy: ', 's');
-save(title_all_temps, 'T_all');
-save(title_heatmap_temps, 'T_heatmap');
+title_all_temps = input(['Podaj nazwę pliku, który przechowuje' ...
+    ' wszystkie temperatury (podaj "nie zapisuj" jeśli' ...
+    'nie chcesz zapisywać): '], 's');
+if ~strcmp(title_all_temps, 'nie zapisuj')
+    save(title_all_temps, 'T_all');
+end
+
+title_heatmap_temps = input(['Podaj nazwę pliku, który przechowuje' ...
+    ' temperatury dla heatmapy (podaj "nie zapisuj" jeśli' ...
+    ' nie chcesz zapisywać): '], 's');
+if ~strcmp(title_heatmap_temps, 'nie zapisuj')
+    save(title_heatmap_temps, 'T_heatmap');
+end
